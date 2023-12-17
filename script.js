@@ -23,6 +23,7 @@ addColorChangeEventListener('playerTwoColorPicker', 'player-two', '--player-two-
 
 addClickEventListener('playerOneColorTile', 'playerOneColorPicker')
 addClickEventListener('playerTwoColorTile', 'playerTwoColorPicker')
+
 // addColorChangeEventListener('playerOne');
 // addColorChangeEventListener('playerTwo');
 
