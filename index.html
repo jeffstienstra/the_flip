@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flippy Tiles</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="board-container">
+        <h1>Flippy Tiles</h1>
+        <p>Match 5 in a row to win.</p>
+        <p id="turnIndicator">Waiting to start...</p>
+        <div class="color-selector-container">
+            <div id="playerOneColorTile" class="color-tile" style="background-color: var(--player-one-color);"></div>
+            <input type="color" id="playerOneColorPicker" value="#b62525" hidden>
+            <div id="playerTwoColorTile" class="color-tile" style="background-color: var(--player-two-color);"></div>
+            <input type="color" id="playerTwoColorPicker" value="#0e6abc" hidden>
+        </div>
+        <div class='game-board' id="gameBoard"></div>
+    </div>
+    <script defer="'true" src="script.js"></script>
+</body>
+</html>
