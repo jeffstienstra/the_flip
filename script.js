@@ -39,7 +39,7 @@ function createBoard(size) {
         tile.flipsRemaining = maxFlips; // Initialize flip tracking
 
         // TODO: (not needed?) Create and append flip indicator on load/refresh
-        // const flipIndicator = createAndUpdateFlipIndicator(tile, tile.flipsRemaining);
+        // const flipIndicator = updateFlipIndicators(tile, tile.flipsRemaining);
 
         // Create selectors for player one, player two, and obstacles
         addSelector(tile, 'color-one-selector', 'player-one');
@@ -55,31 +55,30 @@ function createBoard(size) {
     }
 }
 
-function addSelector(tile, selectorClass, newClass) {
+function addSelector(tile, selectorClass, chosenClass) {
     const selector = document.createElement('div');
     selector.classList.add('selector', selectorClass);
     selector.addEventListener('click', (e) => {
         e.stopPropagation();
-        flipTile(tile, newClass);
+        flipTile(tile, chosenClass);
     });
     tile.appendChild(selector);
 }
 
-function flipTile(tile, newClass) {
+function flipTile(tile, chosenClass) {
     if (tile.flipsRemaining === 0) {return;} // tile is locked - do not flip
-    if (tile.classList.contains('obstacle') || newClass === 'default-color') return;
+    if (tile.classList.contains('obstacle') || chosenClass === 'default-color') return;
 
     addClass(tile, 'flipped');
 
     const animationDuration = 400;
     setTimeout(() => {
-        applyTileColor(tile, newClass);
+        applyTileColor(tile, chosenClass);
 
         tile.flipsRemaining--;
-        createAndUpdateFlipIndicator(tile, tile.flipsRemaining);
+        updateFlipIndicators(tile, tile.flipsRemaining);
 
         if (tile.flipsRemaining === 0) {
-             // TODO: lock icon not needed? when tile has reached maxFlips? cleaner UI w/o it
             // addLockedIcon(tile);
             tile.style.transform = 'none';
             tile.style.cursor = 'default';
@@ -91,7 +90,7 @@ function flipTile(tile, newClass) {
     }, animationDuration);
 }
 
-function createAndUpdateFlipIndicator(tile, flipsRemaining) {
+function updateFlipIndicators(tile, flipsRemaining) {
     if (flipsRemaining < 0) {flipsRemaining = 0;} // Prevent negative flipsRemaining
 
     let indicatorContainer = tile.querySelector('.flip-indicator-container');
@@ -116,27 +115,31 @@ function createAndUpdateFlipIndicator(tile, flipsRemaining) {
     }
 }
 
-function addLockedIcon(tile) {
-    if (tile.flipsRemaining === 0 || tile.classList.contains('obstacle')) {
-        const lockIcon = document.createElement('div');
-        lockIcon.classList.add('lock-icon');
-        lockIcon.textContent = 'X'; // 🔒
-        tile.appendChild(lockIcon);
-        tile.classList.add('locked');
-        lockIcon.style.display = 'block'; // Show the icon
-    }
-}
+// function addLockedIcon(tile) {
+//     if (tile.flipsRemaining === 0 || tile.classList.contains('obstacle')) {
+//         const lockIcon = document.createElement('div');
+//         lockIcon.classList.add('lock-icon');
+//         lockIcon.textContent = 'X'; // 🔒
+//         tile.appendChild(lockIcon);
+//         tile.classList.add('locked');
+//         lockIcon.style.display = 'block'; // Show the icon
+//     }
+// }
 
-function applyTileColor(tile, newClass) {
-    if (newClass === 'obstacle') {
+function applyTileColor(tile, chosenClass) {
+    if (chosenClass === 'obstacle') {
         addClass(tile, 'obstacle');
-        addLockedIcon(tile);
+        // addLockedIcon(tile);
         removeClass(tile, 'default-color');
         setBackgroundColor(tile, obstacleColor);
-    } else if (newClass === 'player-one' || newClass === 'player-two') {
+
+        // remove flip-indicator-container
+        const indicatorContainer = tile.querySelector('.flip-indicator-container');
+        indicatorContainer.style.display = 'none';
+    } else if (chosenClass === 'player-one' || chosenClass === 'player-two') {
         removeClass(tile, 'default-color');
-        setBackgroundColor(tile, newClass === 'player-one' ? playerOneColor : playerTwoColor);
-        tile.className =`tile ${newClass}`;
+        setBackgroundColor(tile, chosenClass === 'player-one' ? playerOneColor : playerTwoColor);
+        tile.className =`tile ' + ${chosenClass}`;
     } else {
         // Toggle the tile color if it's already been flipped
         if (tile.classList.contains('player-one')) {
@@ -167,8 +170,8 @@ function addClass(element, className) {
 function removeClass(element, className) {
     element.classList.remove(className);
 }
-function replaceClass(element, oldClass, newClass) {
-    element.classList.replace(oldClass, newClass);
+function replaceClass(element, oldClass, chosenClass) {
+    element.classList.replace(oldClass, chosenClass);
 }
 function setBackgroundColor(element, color) {
     element.style.backgroundColor = color;
