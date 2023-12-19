@@ -9,13 +9,12 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    display: flex; /* Use Flexbox for alignment */
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: var(--default-background-color);
     color: #fff;
-    /* min-height: 100vh; */
     margin: 0;
 }
 
