@@ -32,9 +32,9 @@ h1, p {
     grid-template-columns: repeat(10, 1fr);
     grid-gap: 1.5%; /* Use percentage for responsive gaps */
     width: 90%; /* Set a relative width for the board */
-    max-width: 1000px; /* Maximum size */
+    max-width: 700px; /* Maximum size */
     margin: auto;
-
+    min-width: 500px;
 }
 
 .tile {
@@ -44,7 +44,7 @@ h1, p {
     justify-content: center;
     width: 100%;
     padding-top: 100%;
-    border-radius: 10%;
+    border-radius: 5%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -88,9 +88,9 @@ h1, p {
     justify-content: center;
     background-color: var(--default-background-color);
     left: 50%;
-    border-radius: 10px;
-    bottom: 10px;
-    height: 15px;
+    border-radius: 2px;
+    bottom: 10%;
+    height: 14px;
     padding: 2px 2px;
     transform: translateX(-50%);
 }
@@ -98,9 +98,9 @@ h1, p {
 .flip-indicator {
     width: 10px; /* Circle size */
     height: 10px;
-    border-radius: 50%; /* Make it round */
+    border-radius: 10%; /* Make it round */
     background-color: var(--default-tile-color); /* Circle color */
-    margin: 0 3px; /* Space between circles */
+    margin: 0 2px; /* Space between circles */
     margin-top: 2px;
 }
 
@@ -135,7 +135,7 @@ h1, p {
 .color-tile {
     width: 35px;
     height: 35px;
-    border-radius: 20%;
+    border-radius: 10%;
     margin: 0 16px;
     cursor: pointer;
     display: inline-block;
